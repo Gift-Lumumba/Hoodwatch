@@ -1,3 +1,6 @@
 .env
 virtual/
 .vscode/
+hoodproject/__pycache__/
+hoodapp/__pycache__/
+hoodapp/migrations/__pycache__/
