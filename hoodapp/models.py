@@ -27,10 +27,11 @@ class Neighbourhood(models.Model):
     ('Roysambu','Roysambu'),
     ('Juja','Juja'),
   )
-  name = models.CharField(max_length=200,null=True,blank=True)
+  name = models.CharField(max_length=200)
   location = models.CharField(max_length=30,choices=NEIGHBOURHOOD_CHOICES)
-  occupants_count = models.PositiveIntegerField()
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  description = models.TextField(blank=True,null=True)
+  posted_on = models.DateTimeField(auto_now_add=True)
+  user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
 
   def save_neighbourhood(self):
     self.save()
@@ -43,6 +44,10 @@ class Neighbourhood(models.Model):
 
   def delete_neighbourhood(self):
     self.delete()
+
+  class Meta:
+    ordering = ['posted_on']
+
 
   @classmethod
   def get_neighbourhoods(cls):
