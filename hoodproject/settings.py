@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 ]
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'index'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
