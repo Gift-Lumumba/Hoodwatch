@@ -42,6 +42,7 @@ def search_business(request):
   
     if 'business' in request.GET and request.GET["business"]:
         search_term = request.GET.get("business")
+        businesses = Business.objects.filter(name__icontains = search_term,hood = request.user.join.hood_id.id)
         searched_businesses = Business.search_by_title(search_term)
         message = f"{search_term}"
 
@@ -276,4 +277,18 @@ def edit_post(request,post_id):
   else:
     messages.error(request,'You cannot edit this post...Join a neighbourhood first')
     return HttpResponseRedirect(request.META.get('HTTP REFERER'))  
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+
+    if 'neighbourhood' in request.GET and request.GET["neighbourhood"]:
+        search_term = request.GET.get("neighbourhood")
+        searched_neighbourhoods = Neighbourhood.search_by_title(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"neighbourhood": searched_neighbourhoods})
+
+    else:
+        message = "You haven't searched for any neighbourhood"
+        return render(request, 'search.html',{"message":message})
 
