@@ -12,7 +12,7 @@ class Neighbourhood(models.Model):
   NEIGHBOURHOOD_CHOICES = (
     ('South B','South B'),
     ('South C','South C'),
-    ('Westlands','Westtlands'),
+    ('Westlands','Westlands'),
     ('Donholm','Donholm'),
     ('Ruaka','Ruaka'),
     ('Imara Daima','Imara Daima'),
@@ -31,6 +31,8 @@ class Neighbourhood(models.Model):
   location = models.CharField(max_length=30,choices=NEIGHBOURHOOD_CHOICES)
   description = models.TextField(blank=True,null=True)
   posted_on = models.DateTimeField(auto_now_add=True)
+  police_dept = models.IntegerField(default="0722445233")
+  health_dept = models.IntegerField(default="0700505221")
   user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
 
   def save_neighbourhood(self):
@@ -56,7 +58,7 @@ class Neighbourhood(models.Model):
 
   @classmethod
   def find_neighbourhood_by_id(cls,id):
-    neighbourhood = Neighbourhood.objects.get(neighbourhood_id=id)
+    neighbourhood = Neighbourhood.objects.get(id=id)
     return neighbourhood
 
   def __str__(self):
@@ -68,7 +70,8 @@ class Profile(models.Model):
   class that contains user Profile properties
   '''
   bio = models.TextField()
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
+  hood = models.OneToOneField(Neighbourhood,on_delete=models.CASCADE,blank=True,null=True)
 
   @receiver(post_save, sender=User)
   def create_user_profile(sender, instance, created, **kwargs):
@@ -92,8 +95,8 @@ class Business(models.Model):
   name = models.CharField(max_length=30)
   description = models.TextField(default="",blank=True,null=True)
   email = models.EmailField()
-  user = models.ForeignKey(User)
-  neighbourhood = models.ForeignKey(Neighbourhood)
+  user = models.ForeignKey(User,null=True,blank=True)
+  neighbourhood = models.ForeignKey(Neighbourhood,null=True,blank=True)
 
   def save_business(self):
     self.save
@@ -110,6 +113,11 @@ class Business(models.Model):
     return business
 
   @classmethod
+  def get_hood_businesses(cls, id):
+      businesses = Business.objects.filter(hood_id=id).all()
+      return businesses
+
+  @classmethod
   def search_by_title(cls,search_term):
     business = cls.objects.filter(title__icontains=search_term)
     return business
@@ -117,12 +125,12 @@ class Business(models.Model):
   def __str__(self):
     self.name
 
-class JoinHood(models.Model):
+class Join(models.Model):
   '''
   class that enables one join neighbourhoods
   '''
   user_id = models.OneToOneField(User)
-  neighbourhood_id = models.ForeignKey(Neighbourhood)
+  hood_id = models.ForeignKey(Neighbourhood)
 
   def __str__(self):
     return self.user_id
@@ -142,8 +150,16 @@ class Posts(models.Model):
   def delete_posts(self):
     self.delete()
 
+  @classmethod
+  def get_post_by_hood(cls, id):
+      post = Posts.objects.filter(hood_id=id).all()
+      return post
+
+
   def __str__(self):
     return self.topic
+
+  
 
 class Comments(models.Model):
   '''
