@@ -22,6 +22,7 @@ urlpatterns=[
   url(r'^add_post/$',views.add_post,name = 'add_post'),
   url(r'^posts/$',views.posts,name = 'posts'),
   url(r'^edit_post/(\d+)',views.edit_post,name = 'edit_post'),
+  url(r'searched/', views.search_results, name='search_results'),
 ]
 
 if settings.DEBUG:
