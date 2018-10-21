@@ -5,15 +5,30 @@
 
 {% block content %}
 {{block.super}}
-<br>
-<br>
+<div class="container-fluid search">
+    <div class="col-xs-12 col-sm-6 col-md-12 contents">
+      <div class="container image">
+        <form class="form" role="search" action="{% url 'search_business' %}">
+          
+          <div class="input-group">
+            <input type="text" class="form-control input" placeholder=" Search Business" name="image">&nbsp;&nbsp;   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="button"><i class="fas fa-search"></i></button>
+          </div>
+          <br>
+       
+          <center>
+              <p class="searches" style=" color:#ece3d1;;font-family: 'Lora', serif;font-size: 21.5px;padding-right: 170px;"></p>
+          </center>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
 <div class="container">
     <div class="row" style="padding-bottom:20px">
 		
         <div class="col-sm-12 col-sm-12 col-md-12">
-          {%if user.join%}
-            {% include 'navbar.html' %}
-          {%endif%}
         </div>
         <div class="col-md-9">
           <div class="row">
@@ -28,7 +43,9 @@
                 <p>{{neighbourhood.description.capitalize}}</p>
                 </div>
                 <div class="card-footer">
-                  <a href="{% url 'edit_hood' neighbourhood.id %}" class="btn btn-sm btn-success">Edit Hood</a>
+                  <a href="{% url 'join_hood' neighbourhood.id %}" class="btn btn-sm btn-success">Join Hood</a>
+                  <a href="{% url 'edit_hood' neighbourhood.id %}" class="btn btn-sm btn-info">Edit Hood</a>
+                 
                 </div>
               </div>
             </div>
@@ -46,5 +63,84 @@
       
     </div>
 </div>
-
+<style>
+  .search{
+    background: url(/static/images/nai.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size:cover;
+    background-position: center;
+    height: 500px;
+    
+  }
+  .searchh{
+    color:#ece3d1;;
+  }
+  .input{
+    height: 40px;
+    font-family: 'Lora', serif;
+  }
+  .searches{
+    width: 100px;
+    height: 100px;
+    position: relative;
+  }
+  ::placeholder{
+    font-family: 'Lora', serif;
+    font-size: 16.5px;
+    color: rgb(51, 51, 51) !important;
+  }
+  #button{
+    font-family: 'Lora', serif;
+  }
+  #title{
+    font-family: 'Lora', serif;
+    font-size: 60px;
+  }
+  div.container.image{
+    padding: 6em 0 0;
+  }
+  div.container.imageloc{
+    padding: 4em 0 0;
+  }
+  .search-1 h2{
+    color: #c3c3c3;
+    text-align: center;
+    padding-top: 40px;
+  }
+  .contents{
+    min-height: 450px;
+    width: inherit;
+    padding-top: 70px;
+    
+  }
+  .contents-1{
+    min-height: inherit;
+    width: inherit;
+    background: rgba(0,0,0,0.8)
+  }
+  .search h2 {
+    font-size:2.5em;
+    font-weight: 600;
+    color: #fff;
+  }
+  .search {
+    text-align: center;
+  }
+  .search p {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.46);
+    font-weight: 400;
+    /* margin: 5em auto 1em; */
+    width: 50%;
+  }
+  center{
+    color:#c2baaa;
+    font-family: 'Lora', serif;
+  }
+  center i{
+    color:#ece3d1;
+    font-size: 30px;
+  }
+</style>
 {%endblock%}

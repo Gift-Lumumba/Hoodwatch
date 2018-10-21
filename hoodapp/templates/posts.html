@@ -1,0 +1,47 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<div class="row container" style="padding-bottom:20px">
+		
+			<div class="col-md-3" style="padding-top: 24px">
+			</div>
+			<div class="col-md-7">
+        <br>
+				<h3 >Below are your added posts:</h3>
+				
+					
+				{% if posts %}
+					{%for post in posts%}
+					<div class="card" style="width:50% !important;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-left: 20px;">
+			
+							
+							
+							<div class="panel-body">
+                <p style="font-weight:bolder;font-size:20px;">{{post.topic.capitalize}}</p>
+                <p>{{post.post}}</p>
+								
+								<a href="{% url 'edit_post' post.id%}" class="btn btn-sm btn-primary">Edit</a>
+								<a href="" class="btn btn-sm btn-danger">Delete</a>
+              </div>
+              <br>
+							
+							
+
+				
+          </div>
+          <br>
+					{%endfor%}
+				{%else%}
+						<h4>You havent created any forum posts yet. You can create one <a href="{% url 'add_post' %}">here</a> </h4>
+				{%endif%}
+							
+			
+			
+			</div>
+			<div class="col-md-2"></div>
+			
+		
+	</div>
+
+
+{%endblock%}

@@ -2,23 +2,23 @@
 {%load bootstrap3%}
 {%block content%}
 
-<div class="row container" style="padding-bottom:20px">
+<div class="container">
 		
-			<div class="col-md-3">
-		
+			<div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 0px">
 
-			</div>
+      </div>
+      <br>
 			<div class="col-md-7">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="text-center">Edit Hood</h3>
+						<h3 class="">Edit Profile</h3>
 					</div>
 					<div class="panel-body">
-						<form action="{% url 'edit_hood' neighbourhood.id %}" method="post">
-					
+						<form action="{% url 'update_profile' %}" method="post">
+							
 							{%csrf_token%}
 							{% bootstrap_form form %}
-							<button type="submit" class="btn btn-success">Edit Hood</button>
+							<button type="submit" class="btn btn-success btn-sm">Update Profile</button>
 						</form>
 					</div>
 				</div>
@@ -29,6 +29,4 @@
 			<div class="col-md-2"></div>
 		
 </div>
-
-
 {%endblock%}
