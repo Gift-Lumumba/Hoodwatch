@@ -15,5 +15,30 @@ class AddHoodForm(forms.ModelForm):
   '''
   class Meta:
     model = Neighbourhood
-    fields = ['name','location','description']
+    fields = ['name','location','description','police_dept','health_dept']
     exclude = ['posted_on']
+
+
+class AddBusinessForm(forms.ModelForm):
+	'''
+  Form class that enables a user create a business in the neighbourhood
+	'''
+	class Meta:
+		model = Business
+		fields = ['name','email','description']
+
+class UpdateProfileForm(forms.ModelForm):
+  '''
+  Form class that enables a users update their profiles
+  '''
+  class Meta:
+    model = Profile
+    fields = ['bio']
+
+class PostForm(forms.ModelForm):
+  '''
+  Form class that enables a user post in a neighbourhood
+  '''
+  class Meta:
+    model = Posts
+    fields = ['topic','post']
