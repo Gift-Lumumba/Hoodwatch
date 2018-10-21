@@ -1,25 +1,42 @@
-{%extends 'base.html'%} 
+{%extends 'base.html' %}
+{% load static%}
+
+{% block styles%}
+{{block.super}}
+
+{% endblock %}
+
 {% block content %}
 <div class="container">
-
+  
   <div class="row">
-    {% if businesses%}
-      <h2>Found {{ businesses|length }} of searched term {{message}}</h2>
+    {% if neighbourhood %}
+      <h2 style="color:whitesmoke;">Found {{ neighbourhood|length }} of searched term {{message}}</h2>
     {% else %}
-      <h2> Found 0 businesses for the search term {{message}}</h2>
+      <h2> Found 0 neighbourhoods for the search term {{message}}</h2>
     {% endif %}
 
   </div>
 
   <div class="row">
-
-  {% if businesses %}
-    {% for business in businesses %}
-      <div class="col-sm-6 col-md-3">
-          <h1>{{business.name}}</h1>
-      </div>
+ 
+  {% if neighbourhood %}
+    {% for neighbourhood in neighbourhoods %}
+      
+<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+  <div class="panel panel-info">
+    <div class="panel-heading">{{neighbourhood.name}}</div>
+    <div class="panel-body">
+    <p>{{neighbourhood.description}}</p>
+     <p>{{neighbourhood.location}}</p>
+    </div>
+    <div class="panel-footer">
+    <a href ="{% url 'join_hood' hood.id %}" class="btn btn-primary btn-md">Join</a>
+    </div>
+  </div>
+</div>
     {% endfor %}
   {% endif %}
   </div>
 </div>
-{% endblock %}
+{% endblock%}
