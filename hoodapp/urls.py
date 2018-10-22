@@ -23,6 +23,9 @@ urlpatterns=[
   url(r'^posts/$',views.posts,name = 'posts'),
   url(r'^edit_post/(\d+)',views.edit_post,name = 'edit_post'),
   url(r'searched/', views.search_results, name='search_results'),
+  url(r'^delete_hood/(\d+)',views.delete_hood,name = 'delete_hood'),
+  url(r'^delete_post/(\d+)',views.delete_post,name = 'delete_post'),
+  url(r'^delete_business/(\d+)',views.delete_business,name = 'delete_business'),
 ]
 
 if settings.DEBUG:
