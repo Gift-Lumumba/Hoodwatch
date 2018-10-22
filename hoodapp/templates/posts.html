@@ -19,9 +19,14 @@
 							<div class="panel-body">
                 <p style="font-weight:bolder;font-size:20px;">{{post.topic.capitalize}}</p>
                 <p>{{post.post}}</p>
-								
-								<a href="{% url 'edit_post' post.id%}" class="btn btn-sm btn-primary">Edit</a>
-								<a href="" class="btn btn-sm btn-danger">Delete</a>
+                
+                {% if post.user_id == user.id %}
+                <a href="{% url 'edit_post' post.id%}" class="btn btn-sm btn-primary">Edit</a>
+                {% endif %}
+
+                {% if post.user_id == user.id %}
+                <a href="{% url 'delete_post' post.id %}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                {% endif %}
               </div>
               <br>
 							

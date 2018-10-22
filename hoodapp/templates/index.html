@@ -11,7 +11,7 @@
         <form class="form" role="search" action="{% url 'search_results' %}">
           
           <div class="input-group">
-            <input type="text" class="form-control input" placeholder=" Search Business" name="image">&nbsp;&nbsp;   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="button"><i class="fas fa-search"></i></button>
+            <input type="text" class="form-control input" placeholder=" Search Neighbourhood" name="neighbourhood">&nbsp;&nbsp;   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="button"><i class="fas fa-search"></i></button>
           </div>
           <br>
        
@@ -44,7 +44,12 @@
                 </div>
                 <div class="card-footer">
                   <a href="{% url 'join_hood' neighbourhood.id %}" class="btn btn-sm btn-success">Join Hood</a>
-                  <a href="{% url 'edit_hood' neighbourhood.id %}" class="btn btn-sm btn-info">Edit Hood</a>
+                  {% if neighbourhood.user_id == user.id %}
+                  <a href="{% url 'edit_hood' neighbourhood.id %}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                  {% endif %}
+                  {% if neighbourhood.user_id == user.id %}
+                  <a href="{% url 'delete_hood' neighbourhood.id %}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                 {% endif %}
                  
                 </div>
               </div>
