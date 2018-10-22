@@ -150,14 +150,12 @@ def edit_hood(request,hood_id):
 		return render(request,'edit_hood.html',locals())
 
 @login_required(login_url='/accounts/login/')
-def leave_hood(request,hood_id):
-	'''
-	View function that enables a user leave a neighbourhood
-	'''
-	if Join.objects.filter(user_id = request.user).exists():
-		Join.objects.get(user_id = request.user).delete()
-		messages.error(request, 'You have succesfully left this Neighbourhood.')
-		return redirect('index')
+def leave_hood(request,id):
+  '''
+  Views that enables users leave a neighbourhood
+  '''
+  Join.objects.get(id = request.user.id).delete()
+  return redirect('index')
 
 @login_required(login_url='/accounts/login/')
 def add_business(request):
@@ -205,7 +203,6 @@ def profile(request):
 	'''
 	View profile that renders a user's profile page
 	'''
-  
 	profile = Profile.objects.get(user = request.user)
   
 	return render(request,'profile/profile.html',locals())
@@ -292,3 +289,24 @@ def search_results(request):
         message = "You haven't searched for any neighbourhood"
         return render(request, 'search.html',{"message":message})
 
+def delete_hood(request,hood_id):
+  '''
+  View function that enables deletion of hoods
+  '''
+  Neighbourhood.objects.filter(pk=hood_id).delete()
+  messages.error(request,'Neighbourhood has been deleted successfully')
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def delete_post(request,post_id):
+  '''
+  View function that enables a post to be deleted
+  '''
+  Posts.objects.filter(pk=post_id).delete()
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def delete_business(request,business_id):
+  '''
+  View function that enables a business to be deleted
+  '''
+  Business.objects.filter(pk=business_id).delete()
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
